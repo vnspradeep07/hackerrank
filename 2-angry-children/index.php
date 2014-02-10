@@ -63,25 +63,12 @@ max(1,2,3,4) - min(1,2,3,4) = 4 - 1 = 3
 
 $_fp = fopen("php://stdin", "r");
 
-$lineNumber = 0;
+$n = fgets($_fp);
+$k = fgets($_fp);
 
 $candies = Array();
-
-while ($line = fgets($_fp)) {
-
-    switch($lineNumber) {
-        case 0:
-            $n = $line;
-            break;
-        case 1:
-            $k = $line;
-            break;
-        default:
-            $candies[] = $line;
-            break;
-    }
-
-    $lineNumber++;
+for ($l=0;$l<$n;$l++) {
+    $candies[] = fgets($_fp);
 }
 
 echo unfairness($k, $candies);
@@ -97,13 +84,7 @@ function unfairness($k, $candies) {
 
     //From 0 to $numberCandies - $k
     for ($i=0; $i+$k<=$numberCandies; $i++) {
-        $sample = Array();
-
-        for ($j=$i; $j<$i+$k; $j++) {
-            $sample[] = (int)$candies[$j];
-        }
-
-        $currentFairness = (max($sample) - min($sample));
+        $currentFairness = $candies[$i+$k-1] - $candies[$i];
         if ($currentFairness < $min) {
             $min = $currentFairness;
         }
