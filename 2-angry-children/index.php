@@ -2,9 +2,9 @@
 /*
 Bill Gates is on one of his philanthropic journeys to a village in Utopia. He has N packets of candies and would like to distribute one packet to each of the K children in the village (each packet may contain different number of candies). To avoid a fight between the children, he would like to pick K out of N packets such that the unfairness is minimized.
 
-Suppose the K packets have (x1, x2, x3,….xk) candies in them, where xi denotes the number of candies in the ith packet, then we define unfairness as
+Suppose the K packets have (x1, x2, x3,ï¿½.xk) candies in them, where xi denotes the number of candies in the ith packet, then we define unfairness as
 
-max(x1,x2,…xk) - min(x1,x2,…xk)
+max(x1,x2,ï¿½xk) - min(x1,x2,ï¿½xk)
 
 where max denotes the highest value amongst the elements and min denotes the least value amongst the elements. Can you figure out the minimum unfairness and print it?
 
@@ -62,14 +62,13 @@ max(1,2,3,4) - min(1,2,3,4) = 4 - 1 = 3
 */
 
 $_fp = fopen("php://stdin", "r");
-/* Enter your code here. Read input from STDIN. Print output to STDOUT */
 
 $lineNumber = 0;
 
 $candies = Array();
 
 while ($line = fgets($_fp)) {
-    
+
     switch($lineNumber) {
         case 0:
             $n = $line;
@@ -97,19 +96,19 @@ function unfairness($k, $candies) {
     $numberCandies = count($candies);
 
     //From 0 to $numberCandies - $k
-    for ($i=0; $i+$k<$numberCandies; $i++) {
+    for ($i=0; $i+$k<=$numberCandies; $i++) {
         $sample = Array();
-        
-        for ($j=0; $j<$k; $j++) {
-            $sample[] = $candies[$j];
+
+        for ($j=$i; $j<$i+$k; $j++) {
+            $sample[] = (int)$candies[$j];
         }
-        
-        $currentFairness = max($sample) - min($sample);
+
+        $currentFairness = (max($sample) - min($sample));
         if ($currentFairness < $min) {
             $min = $currentFairness;
         }
     }
-    
+
     return $min;
 }
 ?>
