@@ -60,6 +60,7 @@ Here K = 4. We can choose the packets that contain 1,2,3,4 candies. The unfairne
 
 max(1,2,3,4) - min(1,2,3,4) = 4 - 1 = 3
 */
+
 $_fp = fopen("php://stdin", "r");
 /* Enter your code here. Read input from STDIN. Print output to STDOUT */
 
@@ -86,14 +87,29 @@ while ($line = fgets($_fp)) {
 
 echo unfairness($k, $candies);
 
+/**
+ * We need to find a subset of $k numbers with the lowest unfairness attribute max($sample) - min($sample)
+ */
 function unfairness($k, $candies) {
     sort($candies, SORT_NUMERIC);
-    
-    $sample = Array();
-    for ($i=0; $i<$k; $i++) {
-        $sample[] = $candies[$i];
+
+    $min = PHP_INT_MAX;
+    $numberCandies = count($candies);
+
+    //From 0 to $numberCandies - $k
+    for ($i=0; $i+$k<$numberCandies; $i++) {
+        $sample = Array();
+        
+        for ($j=0; $j<$k; $j++) {
+            $sample[] = $candies[$j];
+        }
+        
+        $currentFairness = max($sample) - min($sample);
+        if ($currentFairness < $min) {
+            $min = $currentFairness;
+        }
     }
     
-    return max($sample) - min($sample);
+    return $min;
 }
 ?>
