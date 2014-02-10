@@ -37,7 +37,6 @@ $_fp = fopen("php://stdin", "r");
 /* Enter your code here. Read input from STDIN. Print output to STDOUT */
 
 $lineNumber = 0;
-$savedWrappers = 0;
 
 while ($line = fgets($_fp)) {
     if (!$lineNumber) {
@@ -53,7 +52,7 @@ while ($line = fgets($_fp)) {
 
 function chocolates($n, $c, $m)
 {
-    $bought = $n / $c;
+    $bought = floor($n / $c);
 
     $wrappers = $bought;
     
