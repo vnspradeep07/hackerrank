@@ -60,16 +60,10 @@ function chocolates($n, $c, $m)
     while (floor($wrappers / $m) > 0) {
         
         //Figure out the new wrappers
-        $bonus = floor($wrappers / $m);
-        //Add to the total
-        $bought += $bonus;
+        $bought += floor($wrappers / $m);
         
-        //Remove used wrappers
-        $used = $wrappers - ($wrappers % $m);
-        $wrappers = $wrappers - $used;
-        
-        //Add in the bonus wrappers
-        $wrappers += $bonus;
+        //New wrapper total is newly bought +leftovers 
+        $wrappers = floor($wrappers / $m) + ($wrappers % $m);
         
     }
     
