@@ -44,24 +44,36 @@ while ($line = fgets($_fp)) {
         $numberTests = $line;
     } else {
         $data = explode(' ', $line);
-        
-        $bought = floor($data[0]/$data[1]);
-        
-        $wrappers = $bought;
 
-        $bonus = floor($wrappers/$data[2]);
+        echo chocolates($data[0], $data[1], $data[2]).PHP_EOL;
+    }
+
+    $lineNumber++;
+}
+
+function chocolates($n, $c, $m)
+{
+    $bought = $n / $c;
+
+    $wrappers = $bought;
+    
+    while (floor($wrappers / $m) > 0) {
         
-        $savedWrappers = $savedWrappers + ($wrappers % $data[2]);
+        //Figure out the new wrappers
+        $bonus = floor($wrappers / $m);
+        //Add to the total
+        $bought += $bonus;
         
-        if ($savedWrappers > $data[2]) {
-            $bonus += 1;
-            $savedWrappers -= $data[2];
-        }        
-                
-        echo ($bought + $bonus).PHP_EOL;
+        //Remove used wrappers
+        $used = $wrappers - ($wrappers % $m);
+        $wrappers = $wrappers - $used;
+        
+        //Add in the bonus wrappers
+        $wrappers += $bonus;
+        
     }
     
-    $lineNumber++;
+    return $bought;
 }
 
 ?>
